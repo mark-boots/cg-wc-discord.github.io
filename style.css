@@ -1,0 +1,387 @@
+@font-face {
+    font-family: "gg sans";
+    src: url("./fonts/gg_sans_regular.woff2");
+    font-weight: 400;
+}
+@font-face {
+    font-family: "gg sans";
+    src: url("./fonts/gg_sans_medium.woff2");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "gg sans";
+    src: url("./fonts/gg_sans_semibold.woff2");
+    font-weight: 600;
+}
+@font-face {
+    font-family: "gg sans";
+    src: url("./fonts/gg_sans_bold.woff2");
+    font-weight: 700;
+}
+@layer reset{
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font: inherit;
+    }
+}
+@layer main-layout{
+    body {
+        min-height: 100vh;
+        display: grid;
+        grid-template-areas:
+            'server-select server-name channel-header'
+            'server-select channel-select channel-content'
+            'server-select user channel-content';
+        grid-template-columns: max-content max-content 1fr;
+        grid-template-rows: max-content 1fr max-content; 
+        color: #ffffff;
+        font-family: "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+    }
+    nav {
+        grid-area: server-select;
+        background-color: #1e1f23;
+        padding: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    aside, main { 
+        display: contents;
+    }
+    .server-name { 
+        grid-area: server-name;
+        background-color: #2c2d31;
+    }
+    .channel-select {
+        grid-area: channel-select;
+        background-color: #2c2d31;
+        color: #949BA3;
+    }
+    .user {
+        grid-area: user;
+        background-color: #232428;
+    }
+    .channel-header{
+        grid-area: channel-header;
+        background-color: #323338;
+    }
+    .channel-content{
+        grid-area: channel-content;
+        background-color: #323338;
+        display: grid;
+        align-content: end;
+    }
+}
+@layer server-select{
+    .server-icon{
+        display: grid;
+        place-items: center;
+        width: 3rem;
+        aspect-ratio: 1;
+        --padding: 0.75rem;
+        padding: var(--padding);
+        border-radius: 50%;
+        background-color: #313338;
+        font-size: 1.125em;
+        transition: all 250ms ease;
+        position: relative;
+    }
+    .server-icon.selected,
+    .server-icon:hover{
+        border-radius: 1rem;
+        background-color: #5665f3;
+    }
+    .server-icon.selected {
+        --indicator-height: 75%;
+    }
+    .server-icon:hover:not(.selected){
+        --indicator-height: 50%;
+    }
+    .server-icon::before{
+        content: "";
+        position: absolute;
+        height: var(--indicator-height, 0);
+        --width: 5px;
+        width: var(--width);
+        border-radius: calc(var(--width) / 2);
+        background-color: #ffffff;
+        left: calc(var(--padding) * -1 - var(--width) / 2);
+        transition: inherit
+    }
+    .server-separator{
+        width: 2rem;
+        height: 2px;
+        background-color: #35363C ;
+    }
+    .server-icon.icon-green{
+        color: #2CA45C;
+    }
+    .server-icon.icon-green:hover{
+        color: unset;
+        background-color: #2CA45C;
+    }
+}
+@layer server-name{
+    .server-name:hover{
+        background-color: #36373d;
+        
+    }
+    .server-name{
+        padding: 0.75rem 1rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        border-bottom: 1px solid #202125;
+        font-weight: 600;
+        justify-content: space-between;
+    }
+}
+@layer channel-select{     
+    .channel-select{
+        font-weight: 600;
+        --padding: 1rem;
+        padding: var(--padding);
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        font-size: 0.75rem;
+    }
+    .channel-category {
+        display: grid;
+        gap: 0.25rem;
+    }
+    .channel-category > .name {
+        
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 0.25rem;
+        gap: .75rem;
+        position: relative;
+    }
+    .channel-category > .name > .carret {
+        position: absolute;
+        left: calc(var(--padding) * -1);
+        width: var(--padding);
+    }
+    .channel-select > .channel-category >.name:hover > *:not(.buttons),
+    .channel-select > .channel-category > .name > .buttons > svg:hover{
+        color: #ffffff;
+    }
+    .channel-select > .channel-category > .channels {
+        display: grid;
+        gap: 0.25rem;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    .channel-select > .channel-category > .channels > .name{
+        margin-inline: calc(var(--padding) * -.5);
+        padding: 0.3rem .8rem 0.3rem 0.5rem;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .channel-select > .channel-category > .channels > .name >.text{
+        flex: 1;
+    }
+    .channel-select > .channel-category > .channels > .name > .buttons{
+        display: flex;
+        gap: 0.25rem;
+        color: #b5bac1;
+    }
+    .channel-select > .channel-category > .channels > .name:not(:hover,.active) > .buttons{
+        opacity: 0;
+    }
+    .channel-select > .channel-category > .channels > .name.active{
+        background-color: #404249;
+    }
+    .channel-select > .channel-category > .channels > .name:hover:not(.active){
+        background-color: #36373d;
+    }
+    .channel-select > .channel-category > .channels > .name.active >.text,
+    .channel-select > .channel-category > .channels > .name:hover >.text,
+    .channel-select > .channel-category > .channels > .name > .buttons > svg:hover{
+        color: #ffffff;   
+    }
+}
+@layer user{
+    .user{
+        display: grid;
+        grid-template-areas:
+            'icon name buttons'
+            'icon username buttons';
+        grid-template-columns: max-content 1fr max-content;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        gap: 0 0.5rem;
+        font-size: 0.9rem;
+    }
+    .user > .icon {
+        grid-area: icon;
+        aspect-ratio: 1;
+        background-color: #f6a619;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        width: 2rem;
+    }
+    .user > .name {
+        grid-area: name;
+        font-weight: 600;
+    }
+    .user > .username {
+        grid-area: username;
+        font-size: 0.8rem;
+        color: #b5bac1;
+    }
+    .user > .buttons{
+        grid-area: buttons;
+        color: #b9b9c1;
+        display: flex;
+        padding-left: 0.5rem;
+    }
+    .user > .buttons > .button {
+        padding: 0.4rem;
+        color: #b5bac1;
+        border-radius: 4px;
+    }
+    .user > .buttons > .button:hover {
+        color: #dbdee1;
+        background-color: #3d3e45;
+    }
+    .user > .buttons > .button > .mute.muted > .strikethrough{
+        color: #ff0000;   
+    }
+}
+@layer channel-header{
+    .channel-header{
+        padding: 0.75rem 1rem;
+        font-weight: 600;
+        border-bottom: 1px solid #202125;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .channel-header > .name {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .channel-header > .name > svg{
+        color: #80848e;
+    }
+    .channel-header > .buttons {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .channel-header > .buttons > button{
+        appearance: none;
+        background: none;
+        border: none;
+        color: #b5bac1;
+        padding: 0;
+        aspect-ratio: 1;
+    }
+    .channel-header > .buttons > button:hover{
+        color: #dbdee1;
+    }
+    .channel-header > .buttons > .search{
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .channel-header > .buttons > .search > svg {
+        position: absolute;
+        right: 0.5rem;
+        color: #949ba4;
+    }
+    .channel-header > .buttons > .search > input{
+        background-color: #1E1F22;
+        border: none;
+        width: 9rem;
+        padding: 0.25rem;
+        border-radius: 4px;
+        color: #ffffff;
+        font-size: 0.9rem;
+        transition: width 250ms ease;
+        outline: none;
+    }
+    .channel-header > .buttons > .search > input:focus{
+        width: 12rem;
+    }
+    .channel-header > .buttons > .search > input::placeholder{
+        color: #dbdee1;
+        font-weight: 400;
+    }
+}
+@layer channel-content{
+    .channel-content{
+        padding: 1.5rem 1rem;
+        display: grid;
+        gap: 1.8rem;
+    }
+    .channel-content .message > * {
+        line-height: 1;
+        margin-bottom: 0.5em;
+    }
+    .channel-content .message .icon {
+        width: 4rem;
+        background-color: red;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        margin-bottom: 1rem;
+        border-radius: 50%;
+        background-color: #40434a
+    }
+    .channel-content .message h1 {
+        font-weight: 700;
+        font-size: 2rem;
+    }
+    .channel-content .message p {
+        color: #B5BAC1
+    }
+    .channel-content .message .edit{
+        margin-top: 1em;
+        color: #1DA9F8
+    }
+    .channel-content .message-input{
+        background-color: #393a3f;
+        padding: 0.7rem 1rem;
+        border-radius: 4px;
+        display: flex;
+        gap: 1rem;
+        color: #B5BAC1 
+    }
+    .channel-content .message-input input{
+        flex: 1;
+        border: none;
+        background: none;
+        outline: none;
+        color: #ffffff
+    }
+    .channel-content .message-input input::placeholder{
+        color: #DBDEE1
+    }
+    .channel-content .message-input svg:hover{
+        color: #ffffff
+    }
+    .channel-content .message-input .emoji{
+        width: 22px;
+        aspect-ratio: 1;
+        background-image: url(https://raw.githubusercontent.com/CodingGarden/discord-ui-challenge/main/icons/emoji-sprite.png);
+        background-size: 242px;
+        filter: grayscale(100%);
+    }
+    .channel-content .message-input .emoji:hover{
+        filter: none
+    }
+}
