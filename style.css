@@ -164,6 +164,13 @@
         padding-right: 0.25rem;
         gap: .75rem;
         position: relative;
+        cursor: pointer;
+    }
+    .channel-category > .name[data-open="false"] + .channels {
+        display: none;
+    }
+    .channel-category > .name[data-open="false"] > .carret {
+        rotate: -90deg;
     }
     .channel-category > .name > .carret {
         position: absolute;

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord</title>
     <link rel="stylesheet" href="style.css">
+    <script src="./script.js" defer></script>
 </head>
 <body>
     <nav class="server-select">
@@ -41,7 +42,7 @@
         </div>
         <div class="channel-select">
             <div class="channel-category">
-                <div class="name">
+                <div class="name" onclick="toggleChannels(this)">
                     <svg class="carret" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.59 8.59004L12 13.17L7.41 8.59004L6 10L12 16L18 10L16.59 8.59004Z"></path>
                     </svg>
@@ -88,7 +89,7 @@
                 </div>
             </div>
             <div class="channel-category">
-                <div class="name">
+                <div class="name" onclick="toggleChannels(this)">
                     <svg class="carret" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M16.59 8.59004L12 13.17L7.41 8.59004L6 10L12 16L18 10L16.59 8.59004Z"></path>
                     </svg>
